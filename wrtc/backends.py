@@ -8,7 +8,10 @@ class BCBBackend(object):
     _url = u'https://www3.bcb.gov.br/ptax_internet/consultarTodasAsMoedas.do?method=consultaTodasMoedas'
     
     def get_currencies(self):
-        response = urllib2.urlopen(self._url)
+        try:
+            response = urllib2.urlopen(self._url)
+        except urllib2.HTTPError:
+            return {}
         parsed_html = html.fromstring(response.read())
         currencies = {}
         for tr in parsed_html.cssselect('table tr'):

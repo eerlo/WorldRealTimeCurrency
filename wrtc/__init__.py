@@ -9,7 +9,7 @@ class WorldCurrency(object):
         self._currencies = self.backend.get_currencies()
 
     def get_currency(self, code):
-        return self._currencies[code]
+        return self._currencies.get(code, None)
 
     def get_backend(self):
         return self.backend
